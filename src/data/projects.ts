@@ -13,7 +13,7 @@ export const projects = [
     description: "A tool to automate CSV data analysis with intuitive filters, aggregations, and data visualizations, enabling users to gain quick insights.",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=80",
     technologies: ["Python", "Pandas", "Data Analysis"],
-    link: "https://github.com/YourUsername/CSV-Data-Analysis-Tool",
+    link: "https://github.com/VemulaDowtyasriprasanth/CSV-Data-Analysis",
     demoLink: "https://youtu.be/mad1gb5CXME?t=260"
   },
   {
