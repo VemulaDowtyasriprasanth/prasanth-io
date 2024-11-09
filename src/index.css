@@ -4,24 +4,31 @@
 
 /* Global Styles */
 body {
-  background-color: #f1f5f9; /* Light gray background */
-  color: #1f2937; /* Dark text */
+  font-family: 'Poppins', 'Inter', sans-serif;
+  background-color: #1f2937; /* Dark gray background */
+  color: #f1f5f9; /* Light gray text */
 }
 
+/* Section Styles */
+.section {
+  background-color: #1e293b; /* Section background for uniformity */
+  padding: 2rem 0;
+}
+
+/* Hero Section Styling */
 .intro-section {
   max-width: 700px;
   margin: auto;
   padding-top: 40px;
   text-align: center;
-  animation: fadeIn 2s ease-in-out;
+  color: #f1f5f9; /* Light color for contrast */
 }
 
 .btn-primary {
-  background-color: #3b82f6; /* Tailwind blue-500 */
+  background-color: #3b82f6;
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
-  margin-right: 0.5rem;
   transition: all 0.3s ease;
 }
 
@@ -31,7 +38,7 @@ body {
 }
 
 .btn-secondary {
-  background-color: white;
+  background-color: transparent;
   color: #3b82f6;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
@@ -40,12 +47,14 @@ body {
 }
 
 .btn-secondary:hover {
-  background-color: #e5e7eb;
+  background-color: #1e3a8a;
+  color: white;
 }
 
+/* Profile Image Styling */
 img.profile {
   border-radius: 50%;
-  border: 4px solid #1e3a8a;
+  border: 4px solid #3b82f6;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
 }
@@ -54,14 +63,47 @@ img.profile:hover {
   transform: scale(1.05);
 }
 
-/* Keyframes for Animations */
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+/* Technical Skills & Achievements Section */
+.skills-card, .achievements-card {
+  background-color: #2d3748;
+  color: #f1f5f9;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
-@keyframes pulseBorder {
-  0% { border-color: #3b82f6; }
-  50% { border-color: #6ee7b7; }
-  100% { border-color: #3b82f6; }
+.skills-title, .achievements-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #f1f5f9;
+}
+
+.skill-tag, .achievement-tag {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  margin: 0.25rem;
+}
+
+/* Text Glow Effect for Enhanced Readability */
+.text-glow {
+  color: #3b82f6;
+  text-shadow: 0 0 5px rgba(59, 130, 246, 0.5), 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
+/* Blinking cursor effect */
+.blinking-cursor {
+  font-weight: bold;
+  font-size: 2em;
+  color: #00ff00;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
