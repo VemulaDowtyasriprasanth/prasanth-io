@@ -1,21 +1,61 @@
 export const experience = [
   {
-    title: "Senior AI Engineer (Contract)",
-    company: "Salesforce",
+    title: "AI/ML Engineer",
+    company: "Tribis Inc",
+    location: "Remote",
+    period: "Nov 2024 - Present",
+    achievements: [
+      {
+        description: "Analyzed petabyte-scale datasets using Python and SQL, enhancing data-driven decision-making by 25%.",
+        tools: "Python, SQL, Pandas, Data Visualization"
+      },
+      {
+        description: "Developed predictive models with R, improving business strategy alignment and increasing efficiency by 15%.",
+        tools: "R, Predictive Modeling, Statistical Analysis"
+      },
+      {
+        description: "Collaborated with globally distributed teams to implement data initiatives, ensuring high-quality outcomes in a fast-paced environment.",
+        tools: "Remote Collaboration, Agile Practices, Data Pipelines"
+      }
+    ]
+  },
+  {
+    title: "Machine Learning Engineer Trainee",
+    company: "Quasero LLC",
+    location: "Remote",
+    period: "Mar 2024 - Nov 2024",
+    achievements: [
+      {
+        description: "Extracted actionable insights from large datasets using Google BigQuery and Python, supporting positive changes in business strategy.",
+        tools: "Google BigQuery, Python, Data Analysis"
+      },
+      {
+        description: "Created interactive dashboards with Tableau, improving data visualization and stakeholder engagement by 30%.",
+        tools: "Tableau, Data Visualization, Dashboard Development"
+      },
+      {
+        description: "Optimized data processing workflows in a SaaS environment, reducing processing time by 20% through efficient multitasking.",
+        tools: "SaaS, Workflow Optimization, Python"
+      }
+    ]
+  },
+  {
+    title: "Generative Data Engineer",
+    company: "Salesforce (Contract via Quasero LLC)",
     location: "Dallas, TX",
     period: "Jan 2024 - Mar 2024",
     achievements: [
       {
-        description: "Deployed GPT-4 models via Azure OpenAI Service to process customer service datasets from Salesforce Service Cloud, enhancing query prioritization and increasing response accuracy by 35%.",
-        tools: "GPT-4, Azure OpenAI Service, NLP, Pandas, Cosine Similarity"
+        description: "Deployed MuleApps in AnyPoint and integrated Salesforce data from GUS, ORG62, SUPPORTFORCE into AWS S3, cutting manual entry by 50%.",
+        tools: "MuleApps, AWS S3, Data Integration, Automation"
       },
       {
-        description: "Engineered and deployed sales forecasting models using XGBoost and LightGBM in Azure Machine Learning, achieving a 30% improvement in forecast precision.",
-        tools: "Azure ML Studio, Time Series Analysis, Feature Engineering, Hyperparameter Tuning, Cross-Validation"
+        description: "Automated CPS property generation, increasing speed by 75% and reducing errors by 90%, and created Snowflake Tables in Raw and Struct Zones.",
+        tools: "Snowflake, Data Modeling, Automation"
       },
       {
-        description: "Integrated AI-driven services with Salesforce CRM and Coupa Procurement System using RESTful APIs, automating procurement workflows and boosting UI efficiency by 25%.",
-        tools: "RESTful APIs, Flask, PowerApps, OAuth 2.0, JSON"
+        description: "Optimized Airflow DAGs by creating YAML files and Ninja Templates to load data from S3 to Snowflake Tables, improving transfer efficiency by 30%.",
+        tools: "Airflow, YAML, S3, Snowflake"
       }
     ]
   },
@@ -26,16 +66,16 @@ export const experience = [
     period: "Sep 2023 - Dec 2023",
     achievements: [
       {
-        description: "Built sentiment analysis models using GPT-4, BERT, and PyTorch to analyze customer feedback, resulting in a 40% improvement in customer insights.",
-        tools: "Hugging Face Transformers, Text Classification, Tokenization, Fine-tuning, Sentiment Analysis datasets"
+        description: "Engineered an AI chatbot with GPT-3.5, LangChain, and Streamlit to improve client support operations, cutting client response times by 40%.",
+        tools: "GPT-3.5, LangChain, Streamlit, AI Chatbots"
       },
       {
-        description: "Streamlined email workflows by integrating Azure Cognitive Services and Microsoft Outlook with Power Automate, reducing manual effort by 40%.",
-        tools: "Azure Cognitive Services APIs, Microsoft Graph API, Power Automate, Python"
+        description: "Deployed the chatbot Streamlit app on Hugging Face, delivering real-time, client-specific responses and boosting satisfaction by 35%.",
+        tools: "Streamlit, Hugging Face, Python"
       },
       {
-        description: "Developed and deployed a Dockerized web application on Azure App Services, enhancing business process efficiency by 20%.",
-        tools: "Flask, Docker Compose, CI/CD, Azure DevOps"
+        description: "Optimized the chatbot for accuracy, enhancing user experience and cutting support ticket resolution time by 50%.",
+        tools: "Model Optimization, Python, Chatbot Development"
       }
     ]
   },
@@ -46,12 +86,16 @@ export const experience = [
     period: "Aug 2022 - Sep 2023",
     achievements: [
       {
-        description: "Designed and delivered coursework on predictive analytics and financial time series forecasting using LSTM networks, improving student engagement with real-world AI applications by 50%.",
-        tools: "Time Series Analysis, LSTM, Matplotlib, PyTorch Lightning"
+        description: "Tutored 200+ students in statistics, probability, and advanced computer science principles, boosting average grades by 15%.",
+        tools: "Teaching, Mentoring, Curriculum Design"
       },
       {
-        description: "Mentored students in building web applications integrated with Azure Functions and PowerApps, fostering skills in serverless computing and data-driven AI solutions.",
-        tools: "Azure Functions, PowerApps, API Management"
+        description: "Led a wildfire spread prediction project, leveraging meteorological and topographical data to enhance next-day prediction accuracy by 20%.",
+        tools: "Python, Geo-spatial Analysis, Machine Learning"
+      },
+      {
+        description: "Utilized Python and machine learning in a Geo-spatial lab for satellite image processing, enhancing efficiency by 25%.",
+        tools: "QIS, GDAL, NumPy, Satellite Imaging"
       }
     ]
   },
@@ -62,32 +106,32 @@ export const experience = [
     period: "Jan 2022 - Jul 2022",
     achievements: [
       {
-        description: "Implemented an IoT-based anomaly detection system using LoRaWAN technology and Azure IoT Hub, monitoring industrial equipment and improving system reliability by 30%.",
-        tools: "LoRaWAN protocol, Azure IoT Edge, Anomaly Detection, Keras, MQTT"
+        description: "Developed a React.js application to streamline user onboarding and RBAC users for Kong, reducing manual effort by 25%.",
+        tools: "React.js, User Management, RBAC"
       },
       {
-        description: "Built predictive maintenance models using Azure ML Studio and TensorFlow, reducing downtime of critical systems by 20%.",
-        tools: "Predictive Maintenance Modeling, TensorFlow, Feature Importance Analysis, Azure Pipelines"
+        description: "Implemented agile practices and continuous integration, increasing team productivity by 65% and accelerating software release cycles.",
+        tools: "Agile, CI/CD, Team Collaboration"
       },
       {
-        description: "Automated email notifications and reporting via Azure Logic Apps and GPT-3, saving 15 hours per week in manual tasks.",
-        tools: "Azure Logic Apps, GPT-3, Microsoft Outlook"
+        description: "Enhanced system reliability and deployment efficiency using React.js and agile methodologies, contributing to a robust, scalable infrastructure.",
+        tools: "React.js, System Optimization, Agile Practices"
       }
     ]
   },
   {
-    title: "Undergrad Teaching Associate",
+    title: "Undergraduate Teaching Assistant",
     company: "Amrita University",
     location: "Coimbatore, India",
-    period: "Aug 2018 - Dec 2021",
+    period: "Jun 2018 – Dec 2021",
     achievements: [
       {
-        description: "Mentored students on building predictive models for image classification and natural language processing using TensorFlow and Keras, increasing student proficiency in cloud AI tools.",
-        tools: "CNNs, RNNs, Data Augmentation, Azure ML SDK"
+        description: "Instructed students in Scratch and Flogarithm, resulting in a 30% increase in student engagement and proficiency in programming basics.",
+        tools: "Scratch, Flogarithm, Instructional Design"
       },
       {
-        description: "Taught advanced machine learning concepts, including Generative Adversarial Networks (GANs) and Sequence-to-Sequence models, improving student performance by 30%.",
-        tools: "GANs, Seq2Seq models, TensorBoard"
+        description: "Taught C, Python, Data Structures, Algorithms, and Computational Thinking, improving student performance and understanding.",
+        tools: "C, Python, Algorithms, Data Structures"
       }
     ]
   }
