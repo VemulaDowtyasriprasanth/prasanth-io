@@ -61,7 +61,7 @@ function App() {
             <p className="text-xl text-gray-400 mb-6 leading-relaxed">
               With over 6 years of expertise in developing AI-driven solutions, I specialize in building scalable applications and solving complex challenges using machine learning and advanced analytics.
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4">
               <a
                 href="#contact"
                 className="px-6 py-3 rounded-lg bg-blue-500 hover:bg-blue-600 transition-colors"
@@ -73,6 +73,15 @@ function App() {
                 className="px-6 py-3 rounded-lg bg-gray-700 text-blue-400 hover:bg-gray-600 transition-colors"
               >
                 View Projects
+              </a>
+              <a
+                href="https://docs.google.com/document/d/1NUiIK8sCIs6HDD6APZDDbF7iCuLVg4VF/edit?usp=sharing&ouid=117040235381669175039&rtpof=true&sd=true"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors text-white"
+                download
+              >
+                Download Resume
               </a>
             </div>
             {/* Social Links */}
