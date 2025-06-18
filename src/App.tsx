@@ -75,7 +75,7 @@ function App() {
                 View Projects
               </a>
               <a
-                href="https://docs.google.com/document/d/1NUiIK8sCIs6HDD6APZDDbF7iCuLVg4VF/edit?usp=sharing&ouid=117040235381669175039&rtpof=true&sd=true"
+                href="https://docs.google.com/document/d/1pqxS0vhCkMvVtQfO_IGcw4l_ektV1Vye/edit?usp=sharing&ouid=117040235381669175039&rtpof=true&sd=true"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors text-white"

@@ -1,56 +1,8 @@
 export const experience = [
   {
-    title: "Azure AI Engineer | Talent Spotter Resume Management Platform",
-    company: "Advanced Operations Partners, LLC (Full time Contract)",
-    location: "Remote",
-    period: "February 2025 – Present",
-    achievements: [
-      {
-        description: "Architected an end-to-end cloud-native resume management system by designing serverless microservices with Azure Functions and Python Flask, integrating automated CI/CD pipelines via Azure DevOps, achieving 99.9% uptime and 60% cost reduction.",
-        tools: "Azure Functions, Python Flask, Azure DevOps, CI/CD, Serverless"
-      },
-      {
-        description: "Implemented AI-driven metadata extraction by orchestrating Azure OpenAI GPT models within HTTP-triggered Azure Functions and leveraging textract, reducing manual data entry by 95% and boosting search relevance by 40%.",
-        tools: "Azure OpenAI, GPT models, Azure Functions, Textract, AI Metadata Extraction"
-      },
-      {
-        description: "Developed semantic search capabilities using Azure Cognitive Search indexers and vector embeddings (text-embedding-ada-002) with HNSW algorithm, enabling sub-second retrieval across 10,000+ documents.",
-        tools: "Azure Cognitive Search, Vector Embeddings, HNSW Algorithm, Semantic Search"
-      },
-      {
-        description: "Engineered duplicate detection workflows by applying fuzzy matching with thefuzz library and cosine similarity on embeddings, preventing data redundancy and saving 20+ hours/week of manual review.",
-        tools: "Fuzzy Matching, Cosine Similarity, TheFuzz Library, Duplicate Detection"
-      },
-      {
-        description: "Orchestrated multi-format document processing by configuring Blob Storage triggers and Flask-APScheduler jobs for PDF, DOCX, and DOC parsing using PyPDF2, python-docx, and mammoth, achieving 98% text-extraction accuracy.",
-        tools: "Azure Blob Storage, Flask-APScheduler, PyPDF2, python-docx, mammoth"
-      },
-      {
-        description: "Secured user authentication and session management by integrating MSAL with Azure Active Directory and Flask-Login, enforcing OAuth/OpenID Connect flows for multi-tenant access control and enhancing platform compliance.",
-        tools: "MSAL, Azure Active Directory, Flask-Login, OAuth, OpenID Connect"
-      },
-      {
-        description: "Built RESTful APIs for resume upload, search, and metadata retrieval via Azure Functions and Flask-WTF, optimizing average API response times to <200 ms for 95% of requests.",
-        tools: "RESTful APIs, Azure Functions, Flask-WTF, API Optimization"
-      },
-      {
-        description: "Engineered geographic search features by integrating Azure Maps geocoding services and using pandas + NumPy for distance calculations, increasing location-based candidate discovery by 25%.",
-        tools: "Azure Maps, Geocoding, Pandas, NumPy, Geographic Search"
-      },
-      {
-        description: "Optimized NoSQL storage in Azure Cosmos DB by designing collections with /resumeid partition keys and enabling auto-scale throughput, reducing query latency by 30% under peak load.",
-        tools: "Azure Cosmos DB, NoSQL, Partition Keys, Auto-scale Throughput"
-      },
-      {
-        description: "Designed and implemented responsive frontend components with Flask, Bootstrap, Jinja2, and vanilla JavaScript, delivering in-browser PDF previews and conflict-resolution UIs that improved user engagement by 35%.",
-        tools: "Flask, Bootstrap, Jinja2, JavaScript, Frontend Development"
-      }
-    ]
-  },
-  {
     title: "AI/ML Engineer",
     company: "Benchmark Gensuite (Contract)",
-    location: "Platform Engineering and Operations (Part-time)",
+    location: "Platform Engineering and Operations",
     period: "Nov 2024 – Jun 2025",
     achievements: [
       {
