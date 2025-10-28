@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import ProjectCard from './components/ProjectCard';
 import SkillSection from './components/SkillSection';
