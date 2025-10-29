@@ -71,7 +71,7 @@ export const experience = [
     title: "Azure AI Engineer | Talent Spotter Resume Management Platform",
     company: "Advanced Operations Partners, LLC (Full time Contract)",
     location: "Remote",
-    period: "February 2025 – Present",
+    period: "Nov 2024 – Present",
     achievements: [
       {
         description: "Architected an end-to-end cloud-native resume management system by designing serverless microservices with Azure Functions and Python Flask, integrating automated CI/CD pipelines via Azure DevOps, achieving 99.9% uptime and 60% cost reduction.",
