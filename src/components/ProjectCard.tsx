@@ -1,63 +1,83 @@
-import React from 'react';
-import { ExternalLink, Video } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowUpRight, Code2, ExternalLink, Video, Terminal, Database, Network, Workflow, AudioLines, Scan, Ticket } from 'lucide-react';
+import type { Project } from '../data/projects';
 
 interface ProjectProps {
-  project: {
-    id: number;
-    title: string;
-    description: string;
-    technologies: string[];
-    link: string;
-    demoLink?: string;
-    image?: string;
-  };
+  project: Project;
 }
 
+const projectVisuals = {
+  sandbox: { Icon: Terminal, label: 'AGENT SANDBOX' },
+  data: { Icon: Database, label: 'DATA INTELLIGENCE' },
+  agents: { Icon: Network, label: 'MULTI-AGENT SYSTEMS' },
+  reasoning: { Icon: Workflow, label: 'REASONING & ACTION' },
+  voice: { Icon: AudioLines, label: 'REAL-TIME AI' },
+  vision: { Icon: Scan, label: 'COMPUTER VISION' },
+  automation: { Icon: Ticket, label: 'WORKFLOW AUTOMATION' },
+};
+
 const ProjectCard: React.FC<ProjectProps> = ({ project }) => {
+  const [imageUnavailable, setImageUnavailable] = useState(false);
+  const visual = project.visual ? projectVisuals[project.visual] : undefined;
+  const VisualIcon = visual?.Icon ?? Code2;
+  const hasLinks = Boolean(project.link || project.demoLink);
+  const primaryLink = project.demoLink ?? project.link;
+
   return (
-    <div className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-      {project.image && (
-        <div className="relative h-48 overflow-hidden mb-4">
+    <article className="project-card" data-reveal>
+      <div className={`project-image${visual ? ' project-illustration' : ''}`} data-visual={project.visual}>
+        <div className="project-fallback" aria-hidden="true">
+          <VisualIcon size={48} strokeWidth={1.25} />
+          {visual && <span className="project-visual-label">{visual.label}</span>}
+        </div>
+        {project.image && !imageUnavailable && (
           <img
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-110"
+            loading="lazy"
+            decoding="async"
+            onError={() => setImageUnavailable(true)}
           />
+        )}
+        <div className="project-topbar" aria-hidden="true">
+          <span className="project-index">{String(project.id).padStart(2, '0')}</span>
+          {hasLinks && <ArrowUpRight size={20} />}
         </div>
-      )}
-      <h3 className="text-2xl font-semibold text-gray-100 mb-2">{project.title}</h3>
-      <p className="text-gray-400 mb-4">{project.description}</p>
-      <div className="flex flex-wrap gap-2 mb-4">
-        {project.technologies.map((tech, index) => (
-          <span
-            key={index}
-            className="px-2 py-1 text-sm bg-blue-700 text-gray-100 rounded-full"
-          >
-            {tech}
-          </span>
-        ))}
       </div>
-      <div className="flex space-x-4">
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 hover:underline flex items-center"
-        >
-          Learn More <ExternalLink size={16} className="ml-1" />
-        </a>
-        {project.demoLink && (
-          <a
-            href={project.demoLink}
+      <div className="project-body">
+        <h3>{primaryLink ? <a href={primaryLink} target="_blank" rel="noopener noreferrer">{project.title}</a> : project.title}</h3>
+        <p>{project.description}</p>
+        <div className="tag-list">
+          {project.technologies.map((tech, index) => (
+            <span key={index} className="tech-tag">
+              {tech}
+            </span>
+          ))}
+        </div>
+        {hasLinks && <footer className="project-links">
+          {project.link && <a
+            href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-green-500 hover:underline flex items-center"
+            className="text-link"
+            aria-label={`${project.linkLabel ?? 'Learn More'} — ${project.title}`}
           >
-            See Demo <Video size={16} className="ml-1" />
-          </a>
-        )}
+            {project.linkLabel ?? 'Learn More'} <ExternalLink size={16} aria-hidden="true" />
+          </a>}
+          {project.demoLink && (
+            <a
+              href={project.demoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link"
+              aria-label={`${project.demoLabel ?? 'See Demo'} — ${project.title}`}
+            >
+              {project.demoLabel ?? 'See Demo'} {project.demoLabel === 'Open app' ? <ArrowUpRight size={16} aria-hidden="true" /> : <Video size={16} aria-hidden="true" />}
+            </a>
+          )}
+        </footer>}
       </div>
-    </div>
+    </article>
   );
 };
 
