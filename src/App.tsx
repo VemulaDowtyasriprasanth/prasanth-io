@@ -1,189 +1,218 @@
-import { useState } from 'react';
-import { Github, Linkedin, Mail, Menu, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowDown, ArrowRight, ArrowUpRight, ArrowUp, Github, Linkedin, Mail, Menu, X, MapPin, Pause, Play, Download } from 'lucide-react';
 import ProjectCard from './components/ProjectCard';
 import SkillSection from './components/SkillSection';
 import Experience from './components/Experience';
 import Achievements from './components/Achievements';
+import Certifications from './components/Certifications';
 import profileImage from './assets/profile_pic.png';
-import { projects } from './data/projects';
+import { projects, portfolioResources } from './data/projects';
+
+const navigation = [['projects', 'Projects'], ['experience', 'Experience'], ['skills', 'Skills'], ['achievements', 'Education & certs'], ['about', 'About']] as const;
+const projectFilters = ['All projects', 'Sandboxes & agents', 'Products', 'AI & agents', 'Data & automation', 'Machine learning'] as const;
+type ProjectFilter = typeof projectFilters[number];
+const projectCategories: Record<Exclude<ProjectFilter, 'All projects'>, number[]> = {
+  'Sandboxes & agents': [13, 14, 15, 16, 17],
+  'Products': [18, 19, 23],
+  'AI & agents': [3, 7, 8, 12, 13, 14, 15, 16, 17, 19],
+  'Data & automation': [1, 2, 9, 10, 11, 18, 20, 22, 23],
+  'Machine learning': [4, 5, 6, 21],
+};
+const githubUrl = 'https://github.com/VemulaDowtyasriprasanth';
+const linkedinUrl = 'https://linkedin.com/in/dsp1729/';
+const resumeUrl = 'https://docs.google.com/document/d/1bdA8ADEX0t8WCvSZFWAXE_JOG2tt8zI8/edit?usp=sharing&ouid=117040235381669175039&rtpof=true&sd=true';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [projectFilter, setProjectFilter] = useState<ProjectFilter>('All projects');
+  const [motionPaused, setMotionPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const motionEnabled = !motionPaused && !reducedMotion;
+  const visibleProjects = projectFilter === 'All projects' ? projects : projects.filter(project => projectCategories[projectFilter].includes(project.id));
+
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setReducedMotion(preference.matches);
+    update();
+    preference.addEventListener('change', update);
+    return () => preference.removeEventListener('change', update);
+  }, []);
+
+  useEffect(() => {
+    const closeMenu = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', closeMenu);
+    return () => document.removeEventListener('keydown', closeMenu);
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      const distance = document.documentElement.scrollHeight - window.innerHeight;
+      progressRef.current?.style.setProperty('--scroll-progress', String(distance > 0 ? Math.min(window.scrollY / distance, 1) : 0));
+      frame = 0;
+    };
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    document.addEventListener('toggle', schedule, true);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      document.removeEventListener('toggle', schedule, true);
+    };
+  }, [projectFilter]);
+
+  useEffect(() => {
+    if (!('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActiveSection(entry.target.id);
+      });
+    }, { rootMargin: '-18% 0px -58% 0px', threshold: 0 });
+    document.querySelectorAll('main > section[id]').forEach(section => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const elements = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+    if (!motionEnabled || !('IntersectionObserver' in window)) {
+      elements.forEach(element => element.classList.remove('reveal-ready'));
+      return;
+    }
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.03, rootMargin: '0px 0px 40px 0px' });
+    elements.forEach((element, index) => {
+      element.style.setProperty('--reveal-delay', `${index % 3 * 65}ms`);
+      element.classList.add('reveal-ready');
+      if (element.getBoundingClientRect().top < window.innerHeight * 0.95) element.classList.add('is-visible');
+      observer.observe(element);
+    });
+    return () => {
+      observer.disconnect();
+      elements.forEach(element => element.classList.remove('reveal-ready'));
+    };
+  }, [motionEnabled, projectFilter]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100">
-      {/* Navigation Bar */}
-      <nav className="fixed w-full bg-gray-900/80 backdrop-blur-md shadow-md z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-emerald-400 text-transparent bg-clip-text">
-              Prasanth Vemula
-            </span>
-            <div className="hidden md:flex space-x-8">
-              <a href="#projects" className="hover:text-blue-400 transition-colors">Projects</a>
-              <a href="#experience" className="hover:text-blue-400 transition-colors">Experience</a>
-              <a href="#skills" className="hover:text-blue-400 transition-colors">Skills</a>
-              <a href="#achievements" className="hover:text-blue-400 transition-colors">Achievements & Education</a>
-              <a href="#about" className="hover:text-blue-400 transition-colors">About</a>
-              <a href="#contact" className="hover:text-blue-400 transition-colors">Contact</a>
-            </div>
-            <button 
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+    <div className={`portfolio ${motionEnabled ? 'motion-on' : 'motion-off'}`}>
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      <div className="scroll-progress" ref={progressRef} aria-hidden="true" />
+      <nav className="site-nav" aria-label="Main navigation">
+        <div className="nav-inner">
+          <a className="brand" href="#home" aria-label="Prasanth Vemula — home">
+            <span className="brand-symbol">pv<span>.</span></span>
+            <span className="brand-name">Prasanth Vemula<small>ENGINEER & ARCHITECT</small></span>
+          </a>
+          <div className="desktop-navigation">
+            {navigation.map(([id, label]) => <a key={id} href={`#${id}`} className={activeSection === id ? 'active' : ''} aria-current={activeSection === id ? 'location' : undefined}>{label}</a>)}
+          </div>
+          <div className="nav-actions">
+            <button className="motion-control icon-button" onClick={() => setMotionPaused(!motionPaused)} aria-label={reducedMotion ? 'Animations disabled by your system preference' : motionPaused ? 'Enable animations' : 'Pause animations'} aria-pressed={motionPaused || reducedMotion} disabled={reducedMotion} title={reducedMotion ? 'Reduced motion is enabled on your device' : motionPaused ? 'Enable animations' : 'Pause animations'}>
+              {motionEnabled ? <Pause size={15} /> : <Play size={15} />}
+            </button>
+            <a className="nav-contact" href="#contact">Let’s talk <ArrowUpRight size={16} /></a>
+            <button className="menu-toggle icon-button" ref={menuButtonRef} onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={isMenuOpen} aria-controls="mobile-navigation">
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden bg-gray-800 border-t border-gray-700">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <a href="#projects" className="block px-3 py-2 hover:bg-gray-700" onClick={() => setIsMenuOpen(false)}>Projects</a>
-              <a href="#experience" className="block px-3 py-2 hover:bg-gray-700" onClick={() => setIsMenuOpen(false)}>Experience</a>
-              <a href="#skills" className="block px-3 py-2 hover:bg-gray-700" onClick={() => setIsMenuOpen(false)}>Skills</a>
-              <a href="#achievements" className="block px-3 py-2 hover:bg-gray-700" onClick={() => setIsMenuOpen(false)}>Achievements & Education</a>
-              <a href="#about" className="block px-3 py-2 hover:bg-gray-700" onClick={() => setIsMenuOpen(false)}>About</a>
-              <a href="#contact" className="block px-3 py-2 hover:bg-gray-700" onClick={() => setIsMenuOpen(false)}>Contact</a>
-            </div>
-          </div>
-        )}
+        {isMenuOpen && <div id="mobile-navigation" className="mobile-navigation">
+          {navigation.map(([id, label]) => <a key={id} href={`#${id}`} onClick={() => setIsMenuOpen(false)}>{label}<ArrowUpRight size={16} /></a>)}
+          <a href="#contact" onClick={() => setIsMenuOpen(false)}>Contact<ArrowUpRight size={16} /></a>
+        </div>}
       </nav>
-      {/* Hero Section */}
-      <header className="pt-24 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center gap-10">
-          <div>
-            <h1 className="text-5xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-              Hello,<br />
-              I'm an AI Engineer<span className="blinking-cursor">|</span>
-            </h1>
 
-            <p className="text-xl text-gray-400 mb-6 leading-relaxed">
-              With over 6 years of expertise in developing AI-driven solutions, I specialize in building scalable applications and solving complex challenges using machine learning and advanced analytics.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="#contact"
-                className="px-6 py-3 rounded-lg bg-blue-500 hover:bg-blue-600 transition-colors"
-              >
-                Get in Touch
-              </a>
-              <a
-                href="#projects"
-                className="px-6 py-3 rounded-lg bg-gray-700 text-blue-400 hover:bg-gray-600 transition-colors"
-              >
-                View Projects
-              </a>
-              <a
-                href="https://docs.google.com/document/d/1pqxS0vhCkMvVtQfO_IGcw4l_ektV1Vye/edit?usp=sharing&ouid=117040235381669175039&rtpof=true&sd=true"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors text-white"
-                download
-              >
-                Download Resume
-              </a>
+      <main id="main-content">
+        <header id="home" className="hero section-shell">
+          <div className="hero-grid" aria-hidden="true" />
+          <div className="hero-copy">
+            <p className="eyebrow hero-enter"><span className="status-dot" /> Enterprise AI Architect</p>
+            <h1 className="hero-title hero-enter">AI that works.<br /><span>In the real world.</span></h1>
+            <p className="hero-description hero-enter">I’m Prasanth. I build intelligent systems that connect complex data, thoughtful engineering, and real business needs.</p>
+            <div className="hero-actions hero-enter">
+              <a className="button button-primary" href="#projects">Explore my work <ArrowUpRight size={19} /></a>
+              <a className="button button-secondary" href={resumeUrl} target="_blank" rel="noopener noreferrer">View résumé <Download size={17} /></a>
             </div>
-            {/* Social Links */}
-            <div className="flex space-x-4 mt-4 text-gray-400">
-              <a href="https://github.com/VemulaDowtyasriprasanth" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">
-                <Github size={24} />
-              </a>
-              <a href="https://linkedin.com/in/dsp1729/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">
-                <Linkedin size={24} />
-              </a>
-              <a href="mailto:prasanthvemula1729@gmail.com" className="hover:text-blue-500 transition-colors">
-                <Mail size={24} />
-              </a>
+            <div className="hero-meta hero-enter"><span><MapPin size={14} /> Dallas, Texas</span><i className="meta-divider" /><span>Enterprise AI · Cloud · Agentic systems</span></div>
+            <div className="hero-socials hero-enter">
+              <a href={githubUrl} target="_blank" rel="noopener noreferrer" aria-label="Prasanth on GitHub"><Github size={19} /></a>
+              <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Prasanth on LinkedIn"><Linkedin size={19} /></a>
+              <a href="mailto:prasanthvemula1729@gmail.com" aria-label="Email Prasanth"><Mail size={19} /></a>
+              <span>Good things start with a conversation.</span>
             </div>
           </div>
-          <img src={profileImage} alt="Prasanth Vemula" className="profile" />
-        </div>
-      </header>
+          <div className="portrait-stage hero-enter">
+            <div className="portrait-orbit" aria-hidden="true"><span /></div>
+            <figure className="portrait-frame">
+              <div className="portrait-label">THE PERSON BEHIND THE CODE <ArrowUpRight size={15} /></div>
+              <div className="portrait-image"><img src={profileImage} alt="Prasanth Vemula" /></div>
+              <figcaption><div><strong>Prasanth Vemula</strong><span>Enterprise AI Architect</span></div><span className="portrait-mark">PV / 01</span></figcaption>
+            </figure>
+            <div className="floating-note"><span className="status-dot" /><div><small>Currently building at</small><strong>Toyota via NTT Data</strong></div></div>
+            <div className="portrait-coordinate">IDEA → INTELLIGENCE → IMPACT</div>
+          </div>
+          <div className="hero-bottom"><a className="scroll-cue" href="#projects"><ArrowDown size={16} /> SCROLL TO EXPLORE</a><span>Engineering with purpose. Building with curiosity.</span></div>
+        </header>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold mb-12 text-center text-gray-100">Featured Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
-      </section>
+        <div className="expertise-strip" aria-label="Core technologies"><div className="section-shell"><span>Python</span><span>LangGraph</span><span>AWS</span><span>Azure</span><span>OpenSearch</span><span>React</span></div></div>
 
-      {/* Experience Section */}
-      <section id="experience" className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-100">Experience</h2>
+        <section id="projects" className="section-shell content-section">
+          <div className="section-heading" data-reveal><div><p className="eyebrow">01 / SELECTED WORK</p><h2>Ideas, built.</h2></div><p>From agent sandboxes to predictive systems.<br />Projects, experiments, and products brought to life.</p></div>
+          <div className="project-toolbar"><div className="project-filters" aria-label="Filter projects">{projectFilters.map(filter => <button key={filter} className={projectFilter === filter ? 'selected' : ''} aria-pressed={projectFilter === filter} onClick={() => setProjectFilter(filter)}>{filter}</button>)}</div><span className="project-count" role="status" aria-live="polite">{String(visibleProjects.length).padStart(2, '0')} projects</span></div>
+          <div className="projects-grid">{visibleProjects.map(project => <ProjectCard key={project.id} project={project} />)}</div>
+          <div className="project-resources"><span>More of my work</span>{portfolioResources.map(resource => <a key={resource.label} href={resource.url} target="_blank" rel="noopener noreferrer">{resource.label} <ArrowUpRight size={16} /></a>)}</div>
+        </section>
+
+        <section id="experience" className="content-section experience-section"><div className="section-shell">
+          <div className="section-heading" data-reveal><div><p className="eyebrow">02 / THE JOURNEY</p><h2>Experience that builds.</h2></div><p>Enterprise teams. Ambitious startups.<br />Products built from the ground up.</p></div>
           <Experience />
-        </div>
-      </section>
+        </div></section>
 
-      {/* Skills Section */}
-      <section id="skills" className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-100">Technical Skills</h2>
+        <section id="skills" className="section-shell content-section">
+          <div className="section-heading" data-reveal><div><p className="eyebrow">03 / MY TOOLKIT</p><h2>The tools behind the work.</h2></div><p>A practical stack for turning<br />complex challenges into working systems.</p></div>
           <SkillSection />
-        </div>
-      </section>
+        </section>
 
-      {/* Achievements & Education Section */}
-      <section id="achievements" className="py-20 bg-gradient-to-br from-gray-800 to-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-100">Achievements & Education</h2>
+        <section id="achievements" className="content-section education-section"><div className="section-shell">
+          <div className="section-heading" data-reveal><div><p className="eyebrow">04 / FOUNDATIONS</p><h2>Always learning.</h2></div><p>Education, certifications, and achievements<br />that shape how I think and build.</p></div>
+          <Certifications />
           <Achievements />
-        </div>
-      </section>
+        </div></section>
 
-
-      {/* About Section */}
-      <section id="about" className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-100">About Me</h2>
-          <div className="max-w-3xl mx-auto prose prose-lg text-gray-300">
-            <p className="mb-6">
-              With over 6 years of expertise in Data Science and AI, I specialize in leveraging Large Language Models (LLMs) like GPT-4 
-              and advanced cloud technologies to create innovative solutions that address real-world challenges. My work spans 
-              developing NLP-powered systems, predictive analytics, and scalable applications.
-            </p>
-            <p className="mb-6">
-              Key projects include building an <span className="font-medium text-gray-200">HR Resume Screening Assistant</span> for automated candidate 
-              analysis, a <span className="font-medium text-gray-200">Custom ChatGPT system</span> using LangChain for enhanced querying, and a 
-              <span className="font-medium text-gray-200">Wildfire Prediction System</span> leveraging machine learning for environmental insights.
-            </p>
-            <p className="mb-6">
-              I am passionate about advancing AI research and have successfully deployed systems like the <span className="font-medium text-gray-200">
-              Customer Care Call Summary</span> for automated speech-to-text summarization and the 
-              <span className="font-medium text-gray-200">Invoice Extraction Chatbot</span> to streamline document processing. Each project reflects 
-              my dedication to creating scalable, robust systems that drive measurable impact.
-            </p>
+        <section id="about" className="section-shell content-section about-section">
+          <div className="about-heading" data-reveal><p className="eyebrow">05 / BEYOND THE CODE</p><h2>Curiosity is<br />the starting point.</h2><div className="about-signature">Prasanth<span>Engineer. Architect. Builder.</span></div></div>
+          <div className="about-copy" data-reveal>
+            <p>With over 6 years of expertise in Data Science and AI, I specialize in leveraging Large Language Models (LLMs) like GPT-4 and advanced cloud technologies to create innovative solutions that address real-world challenges. My work spans developing NLP-powered systems, predictive analytics, and scalable applications.</p>
+            <p>Key projects include building an <strong>HR Resume Screening Assistant</strong> for automated candidate analysis, a <strong>Custom ChatGPT system</strong> using LangChain for enhanced querying, and a <strong>Wildfire Prediction System</strong> leveraging machine learning for environmental insights.</p>
+            <p>I am passionate about advancing AI research and have successfully deployed systems like the <strong>Customer Care Call Summary</strong> for automated speech-to-text summarization and the <strong>Invoice Extraction Chatbot</strong> to streamline document processing. Each project reflects my dedication to creating scalable, robust systems that drive measurable impact.</p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold mb-12 text-center text-gray-100">Get in Touch</h2>
-        <div className="flex justify-center space-x-8">
-          <a href="https://github.com/VemulaDowtyasriprasanth" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-500 transition-colors">
-            <Github size={24} />
-          </a>
-          <a href="https://linkedin.com/in/dsp1729/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-500 transition-colors">
-            <Linkedin size={24} />
-          </a>
-          <a href="mailto:prasanthvemula1729@gmail.com" className="text-gray-400 hover:text-blue-500 transition-colors">
-            <Mail size={24} />
-          </a>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="mb-4">© {new Date().getFullYear()} Prasanth Vemula. All rights reserved.</p>
-          <p className="text-gray-400">Based in Dallas, TX</p>
-        </div>
-      </footer>
+        <section id="contact" className="contact-section"><div className="section-shell contact-inner" data-reveal>
+          <p className="eyebrow">HAVE SOMETHING IN MIND?</p><h2>Let’s build<br /><span>something meaningful.</span></h2>
+          <a className="contact-email" href="mailto:prasanthvemula1729@gmail.com">prasanthvemula1729@gmail.com <ArrowUpRight /></a>
+          <div className="contact-links"><a href={githubUrl} target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight size={16} /></a><a href={linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={16} /></a><a href="#projects">View projects <ArrowRight size={16} /></a></div>
+        </div></section>
+      </main>
+      <footer className="site-footer section-shell"><span>© {new Date().getFullYear()} Prasanth Vemula</span><span>Based in Dallas, Texas</span><a href="#home">Back to top <ArrowUp size={15} /></a></footer>
     </div>
   );
 }
