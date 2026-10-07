@@ -1,9 +1,57 @@
 export const experience = [
   {
-    title: "Founding AI/ML Engineer",
+    title: "Enterprise AI Architect",
+    company: "Toyota via NTT Data",
+    location: "",
+    period: "Feb 2026 – Present",
+    achievements: [
+      {
+        description: "Enterprise GenAI Architecture: Architected reusable AI capabilities across five business domains—business intelligence, engineering, fleet, policy, and manufacturing—using Python, FastAPI, LangChain, LangGraph, and Amazon OpenSearch to support domain-specific retrieval and governed conversational workflows.",
+        tools: "Python, FastAPI, LangChain, LangGraph, Amazon OpenSearch"
+      },
+      {
+        description: "Citation Quality: Increased BIT citation-validation pass rates from 72% to 98%, a 26-percentage-point improvement, across 94 local end-to-end scenarios through authoritative source ordering, inline citation remapping, and URL normalization; validated citation behavior and cross-bot isolation with 141 focused regression tests.",
+        tools: "Authoritative source ordering, Inline citation remapping, URL normalization"
+      },
+      {
+        description: "Advanced RAG Engineering: Engineered context-aware retrieval pipelines combining intent classification, acronym resolution, hybrid lexical/vector search, temporal filtering, reciprocal-rank fusion, and source deduplication to support relevant, time-scoped answers from enterprise knowledge sources.",
+        tools: "Intent classification, Acronym resolution, Hybrid lexical/vector search, Temporal filtering, Reciprocal-rank fusion, Source deduplication"
+      },
+      {
+        description: "Modular AI Services: Decoupled retrieval orchestration from answer generation through modular Model Context Protocol (MCP) services for BIT and EIGcopilot, integrating Pinecone, environment-specific filtering, and citation-ready evidence; validated the local implementation with 173 automated tests and protocol checks across 34 tool catalogs.",
+        tools: "Model Context Protocol (MCP), Pinecone"
+      },
+      {
+        description: "Streaming Reliability: Strengthened long-running AI response handling through 15-second SSE heartbeats, bounded buffering, disconnect cancellation, and partial-answer preservation; validated the changes with 1,099 passing tests to support reliable streaming behavior.",
+        tools: "SSE"
+      },
+      {
+        description: "Knowledge-Source Integrity: Corrected source URL metadata across 846,787 indexed records and 31,805 unique URLs in GearPal’s development index, improving reference integrity while preserving rollback options through controlled alias changes and retained index copies.",
+        tools: "Source URL metadata, Index aliases, Index copies"
+      },
+      {
+        description: "AI Response Governance: Translated business and governance requirements into source-grounded response policies covering approved FAQs, sensitive-information restrictions, source currency, and citations; validated 100% exact-answer fidelity across 16 canonical and paraphrased DP Agent QA scenarios.",
+        tools: "Response policies, Approved FAQs, Citations, QA scenarios"
+      },
+      {
+        description: "Enterprise AI Enablement: Managed provisioning and distribution of 220+ OpenAI API keys and 660+ LangSmith API keys across development, QA, and production environments, alongside LangSmith member and workspace administration, to support cross-team AI development and evaluation.",
+        tools: "OpenAI API, LangSmith"
+      },
+      {
+        description: "Application Integration: Coordinated approximately 15 App2App access requests with GAC Operations, maintaining access documentation and tracking application requirements through the request process to support enterprise application integrations.",
+        tools: "App2App access requests, Access documentation"
+      },
+      {
+        description: "AWS Release Governance: Strengthened release controls through staged configuration validation, version-controlled S3 promotion, integrity checks, and multi-region readiness assessments; defined 32 DevOps actions and 19 cutover gates covering ECS, networking, IAM, configuration, acceptance, and rollback.",
+        tools: "AWS, S3, ECS, IAM"
+      }
+    ]
+  },
+  {
+    title: "Founding AI Platform Engineer",
     company: "Maxmodus",
     location: "Dallas, TX",
-    period: "Jun 2025 – Present",
+    period: "Jun 2025 – Feb 2026",
     achievements: [
       {
         description: "Designed and deployed Bedrock Agents with action groups and OpenAPI tools to classify emails and generate drafts, integrating with the existing Flask RBAC app and Gmail pipeline; lifted draft-acceptance rate by 73% across 5 pilot users.",
@@ -68,10 +116,10 @@ export const experience = [
     ]
   },
   {
-    title: "Azure AI Engineer | Talent Spotter Resume Management Platform",
-    company: "Advanced Operations Partners, LLC (Full time Contract)",
+    title: "AI Platform Solutions Architect",
+    company: "Ao Partners / Sensor Technologies",
     location: "Remote",
-    period: "Nov 2024 – Present",
+    period: "Nov 2024 – Feb 2026",
     achievements: [
       {
         description: "Architected an end-to-end cloud-native resume management system by designing serverless microservices with Azure Functions and Python Flask, integrating automated CI/CD pipelines via Azure DevOps, achieving 99.9% uptime and 60% cost reduction.",
@@ -116,7 +164,7 @@ export const experience = [
     ]
   },
   {
-    title: "AI/ML Engineer",
+    title: "Lead AI Solutions Architect",
     company: "Benchmark Gensuite (Contract)",
     location: "Platform Engineering and Operations",
     period: "Nov 2024 – Jun 2025",
@@ -152,7 +200,7 @@ export const experience = [
     ]
   },
   {
-    title: "Generative Data Engineer",
+    title: "AI Integration Engineer",
     company: "Salesforce (Contract)",
     location: "Dallas, TX",
     period: "Jan 2024 – Nov 2024",
@@ -188,10 +236,10 @@ export const experience = [
     ]
   },
   {
-    title: "AI Engineer",
+    title: "AI Implementation Specialist",
     company: "Amity Tech Corporation",
     location: "Frisco, TX",
-    period: "Sep 2023 - Dec 2023",
+    period: "Sep 2023 – Dec 2023",
     achievements: [
       {
         description: "Engineered an AI chatbot with GPT-3.5, LangChain, and Streamlit to improve client support operations, cutting client response times by 40%.",
@@ -220,10 +268,10 @@ export const experience = [
     ]
   },
   {
-    title: "Graduate Teaching Associate",
-    company: "University of North Texas",
+    title: "Research Solutions Engineer",
+    company: "Dept. of CSE, University of North Texas",
     location: "Denton, TX",
-    period: "Aug 2022 - Sep 2023",
+    period: "Aug 2022 – Sep 2023",
     achievements: [
       {
         description: "Tutored 200+ students in statistics, probability, and advanced computer science principles, boosting average grades by 15%.",
@@ -240,10 +288,10 @@ export const experience = [
     ]
   },
   {
-    title: "Site Reliability Engineer Intern",
+    title: "DevOps & Platform Intern",
     company: "Honeywell",
     location: "Bangalore, India",
-    period: "Jan 2022 - Jul 2022",
+    period: "Jan 2022 – Jul 2022",
     achievements: [
       {
         description: "Developed a React.js application to streamline user onboarding and RBAC users for Kong, reducing manual effort by 25%.",
@@ -260,8 +308,8 @@ export const experience = [
     ]
   },
   {
-    title: "Undergraduate Teaching Assistant",
-    company: "Amrita Vishwa Vidyapeetham",
+    title: "Technical Instructor",
+    company: "Dept. of CSE, Amrita Vishwa Vidyapeetham",
     location: "Coimbatore, India",
     period: "Jun 2018 – Dec 2021",
     achievements: [
@@ -272,6 +320,54 @@ export const experience = [
       {
         description: "Taught C, Python, Data Structures, Algorithms, and Computational Thinking, improving student performance and understanding.",
         tools: "C, Python, Data Structures, Algorithms, Computational Thinking"
+      }
+    ]
+  },
+  {
+    title: "Co-Founder & CTO",
+    company: "RetireStrong",
+    location: "",
+    period: "2025",
+    achievements: [
+      {
+        description: "End-to-End Product Build: Built a patent-pending fintech platform from the ground up, handling everything from the React landing page to the backend logic.",
+        tools: "React"
+      },
+      {
+        description: "Algorithm Development: Engineered the core financial algorithms to provide personalized retirement planning, integrating secure data handling and user-friendly visualizations.",
+        tools: "Financial algorithms, Secure data handling, Data visualization"
+      }
+    ]
+  },
+  {
+    title: "Lead Engineer & Architect",
+    company: "Socovia (MVP)",
+    location: "",
+    period: "2025",
+    achievements: [
+      {
+        description: "Real-Time AI Coaching: Architected and built the MVP for \"Socovia,\" a Real-Time AI Coach, utilizing low-latency audio processing and immediate feedback loops to simulate human coaching interactions.",
+        tools: "Low-latency audio processing, Feedback loops"
+      },
+      {
+        description: "Live Deployment: Successfully deployed the MVP (Source: Real-Time AI Coach), demonstrating proficiency in handling real-time data streams and agentic responses.",
+        tools: "Real-time data streams, Agentic responses"
+      }
+    ]
+  },
+  {
+    title: "Creator & Developer",
+    company: "AI Data Analyst Platform",
+    location: "",
+    period: "2025",
+    achievements: [
+      {
+        description: "Agentic Workflow Design: Developed a fully autonomous AI Data Analyst (Live: AI Data Analyst) capable of executing SQL queries and Python code to visualize data without human intervention.",
+        tools: "SQL, Python"
+      },
+      {
+        description: "Tech Stack: Utilized Streamlit, LangChain, and Pandas to create an interactive interface that bridges the gap between raw data and actionable business insights.",
+        tools: "Streamlit, LangChain, Pandas"
       }
     ]
   }
